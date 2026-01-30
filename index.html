@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Valentines Day</title>
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     .gradient-background {
       background: rgb(255, 208, 229);
@@ -31,18 +32,16 @@
 <body class="gradient-background">
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
+      <!-- 1st GIF -->
       <img
         id="imageDisplay"
         src="./images/piggy-hug.gif"
-        alt="piggy hug gif"
+        alt="Valentine gif"
         class="rounded-md h-[300px]"
         style="object-fit: cover;"
       />
 
-      <h2
-        id="valentineQuestion"
-        class="text-4xl font-bold italic text-[#bd1e59] my-4"
-      >
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">
         Will you be my forever?
       </h2>
 
@@ -78,21 +77,49 @@
     let buttonWidth = 80;
     let fontSize = 20;
 
+    // GIF order you requested (spaces are written as %20 for GitHub Pages)
+    // 1) piggy-hug.gif (already shown at start)
+    // 2) huh cat gif.gif
+    // 3) sad pig.gif
+    // 4) cat please.gif
+    // 5) crying cat.gif
+    // 6) angry pig 2.gif
+    // 7) angry pig 1.gif
+    // 8) before last.webp (stays here for extra No clicks)
     const imagePaths = [
-      "./images/image1.gif",
-      "./images/image2.gif",
-      "./images/image3.gif",
-      "./images/image4.gif",
-      "./images/image5.gif",
-      "./images/image6.gif",
-      "./images/image7.gif"
+      "./images/piggy-hug.gif",
+      "./images/huh%20cat%20gif.gif",
+      "./images/sad%20pig.gif",
+      "./images/cat%20please.gif",
+      "./images/crying%20cat.gif",
+      "./images/angry%20pig%202.gif",
+      "./images/angry%20pig%201.gif",
+      "./images/before%20last.webp"
+    ];
+
+    // No-button messages (you can edit these anytime)
+    const noMessages = [
+      "No",
+      "Are you sure?",
+      "Baby please",
+      "Don't do this to me :(",
+      "You're breaking my heart",
+      "I'm gonna cry...",
+      "Please",
+      "Pleaseeeee",
+      "Pleaseeeeeeeeeeeeeee",
+      "BABYYYYYYY"
     ];
 
     noButton.addEventListener("click", function () {
-      if (noClickCount < 5) {
+      if (noClickCount < noMessages.length - 1) {
         noClickCount++;
-        imageDisplay.src = imagePaths[noClickCount];
 
+        // change GIF up to "before last.webp", then stay on it
+        const imgIndex = Math.min(noClickCount, imagePaths.length - 1);
+        imageDisplay.src = imagePaths[imgIndex];
+
+        // grow YES button
         buttonHeight += 35;
         buttonWidth += 35;
         fontSize += 25;
@@ -101,26 +128,18 @@
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`;
 
-        if (noClickCount < 6) {
-          noButton.textContent = [
-            "No",
-            "Are you sure?",
-            "Baby please",
-            "Don't do this to me :(",
-            "You're breaking my heart",
-            "I'm gonna cry..."
-          ][noClickCount];
-        }
+        // update NO button text
+        noButton.textContent = noMessages[noClickCount];
       }
     });
 
     yesButton.addEventListener("click", () => {
-      imageDisplay.src = "./images/image7.gif";
-      valentineQuestion.textContent = "Yayyy!! :3";
+      // last GIF when YES is clicked
+      imageDisplay.src = "./images/yay%20pic.gif";
+      valentineQuestion.textContent = "YAAAAAAAYYYYYYYYYYYYYY";
       responseButtons.style.display = "none";
       confetti();
     });
   </script>
 </body>
 </html>
-
