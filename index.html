@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentines Day</title>
+
+  <!-- Page title (shows on browser tab) -->
+  <title>A question for you 💗</title>
+
+  <!-- Nice link preview (WhatsApp/iMessage/etc.) -->
+  <meta property="og:title" content="A question for you 💗" />
+  <meta property="og:description" content="Open this when you’re free 😚" />
+  <meta property="og:image" content="https://jarintahrin.github.io/Ask-out-your-Valentine/images/piggy-hug.gif" />
+  <meta property="og:type" content="website" />
+
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
@@ -81,42 +90,39 @@
     let buttonWidth = 80;
     let fontSize = 20;
 
-    // Your exact file order (spaces are OK because we encodeURI when using them)
+    // Your exact file order
     const imagePaths = [
-      "./images/piggy-hug.gif",        // start / step 0
-      "./images/huh cat gif.gif",      // step 1
-      "./images/sad pig.gif",          // step 2
-      "./images/cat please.gif",       // step 3
-      "./images/crying cat.gif",       // step 4
-      "./images/angry pig 2.gif",      // step 5
-      "./images/angry pig 1.gif",      // step 6
-      "./images/before last.webp",     // step 7
-      "./images/AAAA BABYYYY.gif"      // step 8 (new one)
+      "./images/piggy-hug.gif",        // start
+      "./images/huh cat gif.gif",      // 2nd
+      "./images/sad pig.gif",          // 3rd
+      "./images/cat please.gif",       // 4th
+      "./images/crying cat.gif",       // 5th
+      "./images/angry pig 2.gif",      // 6th
+      "./images/angry pig 1.gif",      // 7th
+      "./images/before last.webp",     // 8th
+      "./images/AAAA BABYYYY.gif"      // 9th
     ];
 
-    // NO button messages per click (NO "BABYYYYYYY" at the end)
+    // NO button messages (as you specified)
     const noMessages = [
       "No",
       "Are you sure?",
       "Baby please",
       "Don't do this to me :(",
       "You're breaking my heart",
-      "Are you sure??",                 // angry pig 2
-      "Oh? Someone’s getting brave…",   // angry pig 1
-      "last chanceeee AAAAAAA",         // before last
-      "Babyyyyyyyyyy"         // AAAA BABYYYY.gif
+      "Are you sure??",
+      "Oh? Someone’s getting brave…",
+      "last chanceeee AAAAAAA",
+      "Babyyyyyyyyyy aaaaaaaaa"
     ];
 
     noButton.addEventListener("click", () => {
-      // stop after the last message
       if (noClickCount < noMessages.length - 1) {
         noClickCount++;
 
-        // change image (and keep last image if extra clicks ever happen)
         const imgIndex = Math.min(noClickCount, imagePaths.length - 1);
         imageDisplay.src = encodeURI(imagePaths[imgIndex]);
 
-        // grow YES button every click
         buttonHeight += 35;
         buttonWidth += 35;
         fontSize += 25;
@@ -125,7 +131,6 @@
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`;
 
-        // update NO text
         noButton.textContent = noMessages[noClickCount];
       }
     });
@@ -139,4 +144,3 @@
   </script>
 </body>
 </html>
-
