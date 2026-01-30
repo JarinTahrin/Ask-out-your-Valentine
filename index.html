@@ -17,9 +17,7 @@
       );
     }
 
-    .bounce2 {
-      animation: bounce2 2s ease infinite;
-    }
+    .bounce2 { animation: bounce2 2s ease infinite; }
 
     @keyframes bounce2 {
       0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
@@ -77,27 +75,18 @@
     let buttonWidth = 80;
     let fontSize = 20;
 
-    // GIF order you requested (spaces are written as %20 for GitHub Pages)
-    // 1) piggy-hug.gif (already shown at start)
-    // 2) huh cat gif.gif
-    // 3) sad pig.gif
-    // 4) cat please.gif
-    // 5) crying cat.gif
-    // 6) angry pig 2.gif
-    // 7) angry pig 1.gif
-    // 8) before last.webp (stays here for extra No clicks)
+    // YOUR exact file names (in this exact order)
     const imagePaths = [
-      "./images/piggy-hug.gif",
-      "./images/huh%20cat%20gif.gif",
-      "./images/sad%20pig.gif",
-      "./images/cat%20please.gif",
-      "./images/crying%20cat.gif",
-      "./images/angry%20pig%202.gif",
-      "./images/angry%20pig%201.gif",
-      "./images/before%20last.webp"
+      "./images/piggy-hug.gif",       // 1st (start)
+      "./images/huh cat gif.gif",     // 2nd
+      "./images/sad pig.gif",         // 3rd
+      "./images/cat please.gif",      // 4th
+      "./images/crying cat.gif",      // 5th
+      "./images/angry pig 2.gif",     // 6th
+      "./images/angry pig 1.gif",     // 7th
+      "./images/before last.webp"     // 8th (stays here for extra No clicks)
     ];
 
-    // No-button messages (you can edit these anytime)
     const noMessages = [
       "No",
       "Are you sure?",
@@ -111,13 +100,13 @@
       "BABYYYYYYY"
     ];
 
-    noButton.addEventListener("click", function () {
+    noButton.addEventListener("click", () => {
       if (noClickCount < noMessages.length - 1) {
         noClickCount++;
 
-        // change GIF up to "before last.webp", then stay on it
+        // move through GIFs, then stay on the last one
         const imgIndex = Math.min(noClickCount, imagePaths.length - 1);
-        imageDisplay.src = imagePaths[imgIndex];
+        imageDisplay.src = encodeURI(imagePaths[imgIndex]);
 
         // grow YES button
         buttonHeight += 35;
@@ -128,14 +117,13 @@
         yesButton.style.width = `${buttonWidth}px`;
         yesButton.style.fontSize = `${fontSize}px`;
 
-        // update NO button text
+        // update NO text
         noButton.textContent = noMessages[noClickCount];
       }
     });
 
     yesButton.addEventListener("click", () => {
-      // last GIF when YES is clicked
-      imageDisplay.src = "./images/yay%20pic.gif";
+      imageDisplay.src = encodeURI("./images/yay pic.gif"); // last gif on YES
       valentineQuestion.textContent = "YAAAAAAAYYYYYYYYYYYYYY";
       responseButtons.style.display = "none";
       confetti();
