@@ -30,7 +30,7 @@
 <body class="gradient-background">
   <div class="flex items-center justify-center h-screen">
     <div class="flex flex-col items-center p-4">
-      <!-- 1st GIF -->
+      <!-- START GIF -->
       <img
         id="imageDisplay"
         src="./images/piggy-hug.gif"
@@ -44,9 +44,13 @@
       </h2>
 
       <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+        <!-- YES = BABY PINK -->
         <button
           id="yesButton"
-          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition"
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 min-h-12 min-w-[75px] px-4 py-2 text-white transition"
+          style="background-color:#f7a8c6;"
+          onmouseover="this.style.backgroundColor='#f48bb6'"
+          onmouseout="this.style.backgroundColor='#f7a8c6'"
         >
           Yes
         </button>
@@ -71,44 +75,48 @@
     const responseButtons = document.getElementById("responseButtons");
 
     let noClickCount = 0;
+
+    // YES button grows on every NO click
     let buttonHeight = 48;
     let buttonWidth = 80;
     let fontSize = 20;
 
-    // YOUR exact file names (in this exact order)
+    // Your exact file order (spaces are OK because we encodeURI when using them)
     const imagePaths = [
-      "./images/piggy-hug.gif",       // 1st (start)
-      "./images/huh cat gif.gif",     // 2nd
-      "./images/sad pig.gif",         // 3rd
-      "./images/cat please.gif",      // 4th
-      "./images/crying cat.gif",      // 5th
-      "./images/angry pig 2.gif",     // 6th
-      "./images/angry pig 1.gif",     // 7th
-      "./images/before last.webp"     // 8th (stays here for extra No clicks)
+      "./images/piggy-hug.gif",        // start / step 0
+      "./images/huh cat gif.gif",      // step 1
+      "./images/sad pig.gif",          // step 2
+      "./images/cat please.gif",       // step 3
+      "./images/crying cat.gif",       // step 4
+      "./images/angry pig 2.gif",      // step 5
+      "./images/angry pig 1.gif",      // step 6
+      "./images/before last.webp",     // step 7
+      "./images/AAAA BABYYYY.gif"      // step 8 (new one)
     ];
 
+    // NO button messages per click (NO "BABYYYYYYY" at the end)
     const noMessages = [
       "No",
       "Are you sure?",
       "Baby please",
       "Don't do this to me :(",
       "You're breaking my heart",
-      "I'm gonna cry...",
-      "Please",
-      "Pleaseeeee",
-      "Pleaseeeeeeeeeeeeeee",
-      "BABYYYYYYY"
+      "Are you sure??",                 // angry pig 2
+      "Oh? Someone’s getting brave…",   // angry pig 1
+      "last chanceeee AAAAAAA",         // before last
+      "Babyyyyyyyyyy aaaaaaaaa"         // AAAA BABYYYY.gif
     ];
 
     noButton.addEventListener("click", () => {
+      // stop after the last message
       if (noClickCount < noMessages.length - 1) {
         noClickCount++;
 
-        // move through GIFs, then stay on the last one
+        // change image (and keep last image if extra clicks ever happen)
         const imgIndex = Math.min(noClickCount, imagePaths.length - 1);
         imageDisplay.src = encodeURI(imagePaths[imgIndex]);
 
-        // grow YES button
+        // grow YES button every click
         buttonHeight += 35;
         buttonWidth += 35;
         fontSize += 25;
@@ -123,7 +131,7 @@
     });
 
     yesButton.addEventListener("click", () => {
-      imageDisplay.src = encodeURI("./images/yay pic.gif"); // last gif on YES
+      imageDisplay.src = encodeURI("./images/yay pic.gif");
       valentineQuestion.textContent = "YAAAAAAAYYYYYYYYYYYYYY";
       responseButtons.style.display = "none";
       confetti();
